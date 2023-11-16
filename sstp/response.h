@@ -11,7 +11,7 @@ namespace sstp {
 class Response {
     public:
         Response();
-        Response(int code, const char *status, const char *protocol);
+        Response(const char *protocol, int code, const char *status);
         ~Response();
         static Response parse(std::string str);
         static Response parse(std::istringstream iss);
@@ -31,9 +31,9 @@ class Response {
             return oss.str();
         }
     private:
+        std::string protocol_;
         int code_;
         std::string status_;
-        std::string protocol_;
         Header header_;
 };
 

@@ -4,8 +4,8 @@
 
 namespace sstp {
 
-Response::Response() : code_(), status_(), protocol_(), header_() {}
-Response::Response(int code, const char *status, const char *protocol) : code_(code), status_(status), protocol_(protocol), header_() {}
+Response::Response() : protocol_(), code_(), status_(), header_() {}
+Response::Response(const char *protocol, int code, const char *status) : protocol_(protocol), code_(code), status_(status), header_() {}
 Response::~Response() {}
 
 Response Response::parse(std::string str) {

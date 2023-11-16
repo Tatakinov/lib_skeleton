@@ -14,6 +14,6 @@ bool __unload() {
 
 std::string __request(std::string request) {
     sstp::Request req = sstp::Request::parse(request);
-    sstp::Response res{204, "No Content", "SAORI/1.0"};
+    sstp::Response res{"SAORI/1.0", 204, "No Content"};
     return res;
 }
