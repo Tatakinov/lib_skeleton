@@ -25,18 +25,9 @@ Header Header::parse(std::istringstream& iss) {
         }
         std::string key = header.substr(0, pos);
         std::string value = header.substr(pos + 2);
-        tmp.set(key, value);
+        tmp[key] = value;
     }
     return tmp;
-}
-
-std::optional<std::string> Header::get(std::string key) const {
-    try {
-        return std::make_optional<std::string>(map_.at(key));
-    }
-    catch (std::exception e) {
-        return std::nullopt;
-    }
 }
 
 void Header::remove(std::string key) {

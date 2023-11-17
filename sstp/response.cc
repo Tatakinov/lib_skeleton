@@ -13,10 +13,11 @@ Response Response::parse(std::string str) {
             [](int ch) {return ch == '\x0d';}
     );
     str.erase(result, str.end());
-    return parse(std::istringstream(str));
+    std::istringstream iss(str);
+    return parse(iss);
 }
 
-Response Response::parse(std::istringstream iss) {
+Response Response::parse(std::istringstream& iss) {
     Response tmp;
     std::string line;
     getline(iss, line, '\x0a');
@@ -35,10 +36,6 @@ Response Response::parse(std::istringstream iss) {
     tmp.status_ = line.substr(pos + 1);
     tmp.header_ = Header::parse(iss);
     return tmp;
-}
-
-std::optional<std::string> Response::operator[](std::string key) {
-    return header_[key];
 }
 
 }

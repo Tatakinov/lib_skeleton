@@ -14,13 +14,12 @@ class Request {
         Request(const char *command, const char *protocol);
         ~Request();
         static Request parse(std::string str);
-        static Request parse(std::istringstream iss);
-        std::string getCommand() {return command_;}
-        std::string getProtocol() {return protocol_;}
-        void setCommand(std::string command) {command_    = command;}
-        void setProtocol(std::string protocol) {protocol_ = protocol;}
-        template<typename T> void set(std::string key, T value) { header_.set(key, value); }
-        std::optional<std::string> operator[](std::string key);
+        static Request parse(std::istringstream& iss);
+        std::string getCommand() { return command_; }
+        std::string getProtocol() { return protocol_; }
+        void setCommand(std::string command) { command_    = command; }
+        void setProtocol(std::string protocol) { protocol_ = protocol; }
+        optional& operator[](std::string key) { return header_[key]; }
         operator std::string() const {
             std::ostringstream oss;
             oss << command_ << " " << protocol_ << "\x0d\x0a";
