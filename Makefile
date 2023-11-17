@@ -1,4 +1,4 @@
-LIBRARY			= popup.dll
+LIBRARY			= library.dll
 CXX					= clang++
 CXXFLAGS		= -I . -Wall -Ofast -std=c++17
 LD					= clang++
