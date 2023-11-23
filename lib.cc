@@ -1,7 +1,6 @@
 #include "lib.h"
 
-#include "sstp/request.h"
-#include "sstp/response.h"
+#include "saori.h"
 #include "util.h"
 
 bool __load(std::string path) {
@@ -13,13 +12,18 @@ bool __unload() {
 }
 
 std::string __request(std::string request) {
-    sstp::Request req = sstp::Request::parse(request);
-    if (!req["Argument0"]) {
-        sstp::Response res{"SAORI/1.0", 204, "No Content"};
+    saori::Request req = saori::Request::parse(request);
+    // if (!req["Argument0"]) { と等価
+    if (!req(0)) {
+        saori::Response res{204, "No Content"};
         return res;
     }
-    sstp::Response res{"SAORI/1.0", 200, "OK"};
-    res["Charset"]  = req["Charset"].value();
-    res["Result"]   = req["Argument0"].value();
+    saori::Response res{200, "OK"};
+    if (req["Charset"]) {
+        res["Charset"]  = req["Charset"].value();
+    }
+
+    // res["Result"]   = req["Argument0"].value();と等価
+    res() = req(0).value();
     return res;
 }

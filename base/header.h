@@ -6,9 +6,9 @@
 #include <string>
 #include <unordered_map>
 
-#include "sstp/optional.h"
+#include "base/optional.h"
 
-namespace sstp {
+namespace base {
 
 class Header {
     public:

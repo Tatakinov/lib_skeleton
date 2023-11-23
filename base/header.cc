@@ -1,6 +1,6 @@
 #include "header.h"
 
-namespace sstp {
+namespace base {
 
 Header::Header() {}
 

@@ -4,7 +4,7 @@
 #include <optional>
 #include <string>
 
-namespace sstp {
+namespace base {
 
 class optional : public std::optional<std::string> {
     public:

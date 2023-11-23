@@ -6,7 +6,7 @@ LDFLAGS			= -shared -lmsvcrt -Xlinker /NODEFAULTLIB:LIBCMT
 OBJS				= lib.o \
 					  util.o \
 					  windows/dll.o \
-					  sstp/header.o sstp/request.o sstp/response.o
+					  base/header.o
 ALL					= all
 
 .SUFFIXES: .cc .o
@@ -22,4 +22,4 @@ $(LIBRARY): $(OBJS)
 
 .PHONY: clean
 clean:
-	rm -f *.o windows/*.o sstp/*.o *.exp *.lib *.exe *.dll
+	rm -f *.o windows/*.o base/*.o *.exp *.lib *.exe *.dll
