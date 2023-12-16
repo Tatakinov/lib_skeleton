@@ -12,8 +12,7 @@ namespace base {
     template<const char *protocol_name, const char *protocol_version, const char *value, const char *arg>
         class Response {
             public:
-                Response() : code_(), status_(), header_() {}
-                Response(int code, const char *status) : code_(code), status_(status), header_() {}
+                Response(int code, const char *status) : code_(code), status_(status), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
                 ~Response() {}
                 static Response parse(std::string str) {
                     auto result = std::remove_if(str.begin(), str.end(),
@@ -46,11 +45,13 @@ namespace base {
                     }
                     ret.code_ = std::atoi(line.substr(0, pos).c_str());
                     ret.status_ = line.substr(pos + 1);
+                    ret.protocol_   = protocol;
                     ret.header_ = Header::parse(iss);
                     return ret;
                 }
                 int getStatusCode() { return code_; }
                 std::string getStatus() { return status_; }
+                std::string getProtocol() { return protocol_; }
                 optional& operator[](std::string key) {
                     return header_[key];
                 }
@@ -64,7 +65,7 @@ namespace base {
                 }
                 operator std::string() const {
                     std::ostringstream oss;
-                    oss << protocol_name << "/" << protocol_version << " " << code_ << " " << status_ << "\x0d\x0a";
+                    oss << protocol_ << " " << code_ << " " << status_ << "\x0d\x0a";
                     oss << static_cast<std::string>(header_);
                     oss << "\x0d\x0a";
                     return oss.str();
@@ -72,7 +73,10 @@ namespace base {
             private:
                 int code_;
                 std::string status_;
+                std::string protocol_;
                 Header header_;
+
+                Response() : code_(), status_(), protocol_(), header_() {}
         };
 
 }

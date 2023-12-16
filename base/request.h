@@ -12,8 +12,7 @@ namespace base {
     template<const char *protocol_name, const char *protocol_version, const char *value, const char *arg>
         class Request {
             public:
-                Request() : command_(), header_() {}
-                Request(const char *command) : command_(command), header_() {}
+                Request(const char *command) : command_(command), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
                 ~Request() {}
                 static Request parse(std::string str) {
                     auto result = std::remove_if(str.begin(), str.end(),
@@ -40,11 +39,12 @@ namespace base {
                         return ret;
                     }
                     ret.command_    = line.substr(0, pos);
+                    ret.protocol_   = protocol;
                     ret.header_     = Header::parse(iss);
                     return ret;
                 }
                 std::string getCommand() { return command_; }
-                std::string getProtocol() { return protocol; }
+                std::string getProtocol() { return protocol_; }
                 optional& operator[](std::string key) {
                     return header_[key];
                 }
@@ -58,7 +58,7 @@ namespace base {
                 }
                 operator std::string() const {
                     std::ostringstream oss;
-                    oss << command_ << " " << protocol_name << "/" << protocol_version << "\x0d\x0a";
+                    oss << command_ << " " << protocol_ << "\x0d\x0a";
                     oss << static_cast<std::string>(header_);
                     oss << "\x0d\x0a";
                     return oss.str();
@@ -66,7 +66,10 @@ namespace base {
 
             private:
                 std::string command_;
+                std::string protocol_;
                 Header header_;
+
+                Request() : command_(), protocol_(), header_() {}
         };
 
 }
