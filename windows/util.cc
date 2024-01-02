@@ -5,7 +5,7 @@
 
 #include <windows.h>
 
-std::string conv_internal(std::string input, int to, int from) {
+std::string conv(std::string input, int to, int from) {
   int w_len = 0, mb_len = 0;
   wchar_t *w_str;
   char  *mb_str;

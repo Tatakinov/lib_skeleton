@@ -33,7 +33,7 @@ namespace base {
                     // assert protocol name
                     // line.substr(0, pos);
                     std::string protocol = line.substr(0, pos);
-                    std::string pattern;
+                    std::ostringstream pattern;
                     pattern << protocol_name << R"(/\d+\.\d+)";
                     if (!regex_match(protocol, std::regex(pattern.str()))) {
                         return ret;
