@@ -64,6 +64,9 @@ namespace base {
                     oss << arg << index;
                     return header_[oss.str()];
                 }
+                std::string getContent() const {
+                    return content_;
+                }
                 operator std::string() const {
                     std::ostringstream oss;
                     oss << protocol_ << " " << code_ << " " << status_ << "\x0d\x0a";
