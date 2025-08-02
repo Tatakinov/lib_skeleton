@@ -47,6 +47,7 @@ namespace base {
                     ret.status_ = line.substr(pos + 1);
                     ret.protocol_   = protocol;
                     ret.header_ = Header::parse(iss);
+                    std::getline(iss, ret.content_, '\x0a');
                     return ret;
                 }
                 int getStatusCode() { return code_; }
@@ -68,6 +69,10 @@ namespace base {
                     oss << protocol_ << " " << code_ << " " << status_ << "\x0d\x0a";
                     oss << static_cast<std::string>(header_);
                     oss << "\x0d\x0a";
+                    if (!content_.empty()) {
+                        oss << content_ << "\x0d\x0a";
+                        oss << "\x0d\x0a";
+                    }
                     return oss.str();
                 }
             private:
@@ -75,6 +80,7 @@ namespace base {
                 std::string status_;
                 std::string protocol_;
                 Header header_;
+                std::string content_;
 
                 Response() : code_(), status_(), protocol_(), header_() {}
         };
