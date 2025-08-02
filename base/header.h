@@ -28,7 +28,7 @@ class Header {
         static Header parse(std::istringstream& iss) {
             Header tmp;
             std::string header;
-            while (std::getline(iss, header, '\x0a')) {
+            while (std::getline(iss, header, '\x0a') && !header.empty()) {
                 decltype(header)::size_type pos    = header.find(':');
                 if (pos == decltype(header)::npos) {
                     continue;
