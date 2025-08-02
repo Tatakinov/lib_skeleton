@@ -12,7 +12,7 @@ namespace base {
     template<const char *protocol_name, const char *protocol_version, const char *value, const char *arg>
         class Response {
             public:
-                Response(int code, const char *status) : code_(code), status_(status), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
+                Response(int code, std::string status) : code_(code), status_(status), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
                 ~Response() {}
                 static Response parse(std::string str) {
                     auto result = std::remove_if(str.begin(), str.end(),

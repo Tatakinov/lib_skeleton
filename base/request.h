@@ -12,7 +12,7 @@ namespace base {
     template<const char *protocol_name, const char *protocol_version, const char *value, const char *arg>
         class Request {
             public:
-                Request(const char *command) : command_(command), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
+                Request(std::string command) : command_(command), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
                 ~Request() {}
                 static Request parse(std::string str) {
                     auto result = std::remove_if(str.begin(), str.end(),
