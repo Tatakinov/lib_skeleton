@@ -1,15 +1,14 @@
-#ifndef SSTP_HEADER_H_
-#define SSTP_HEADER_H_
+#ifndef LIB_SKELETON_BASE_HEADER_H_
+#define LIB_SKELETON_BASE_HEADER_H_
 
 #include <algorithm>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 
-#include "base/optional.h"
+#include "lib_skeleton/base/optional.h"
 
-namespace base {
-
+namespace lib_skeleton::base {
 class Header {
     public:
         Header() {}
@@ -44,6 +43,7 @@ class Header {
             map_.erase(key);
         }
 
+        inline const optional& operator[](const std::string& key) const { return map_.at(key); }
         inline optional& operator[](const std::string& key) { return map_[key]; }
         operator std::string() const {
             std::ostringstream oss;
@@ -65,4 +65,4 @@ class Header {
 
 }
 
-#endif // SSTP_HEADER_H_
+#endif // LIB_SKELETON_BASE_HEADER_H_

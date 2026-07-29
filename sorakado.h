@@ -1,18 +1,12 @@
-#ifndef SORAKADO_H_
-#define SORAKADO_H_
+#ifndef LIB_SKELETON_SORAKADO_H_
+#define LIB_SKELETON_SORAKADO_H_
 
-#include "base/request.h"
-#include "base/response.h"
+#include "lib_skeleton/base/request.h"
+#include "lib_skeleton/base/response.h"
 
-namespace sorakado {
-    const char protocol_name[] = "SORAKADO";
-    const char protocol_version[] = "0.1";
-    const char request_value[] = "Command";
-    const char request_arg[] = "Argument";
-    const char response_value[] = "Result";
-    const char response_arg[] = "Value";
-    typedef base::Request<protocol_name, protocol_version, request_value, request_arg> Request;
-    typedef base::Response<protocol_name, protocol_version, response_value, response_arg> Response;
+namespace lib_skeleton::sorakado {
+    using Request = base::Request<"SORAKADO", "0.1", "Command", "Argument">;
+    using Response = base::Response<"SORAKADO", "0.1", "Result", "Value">;
 }
 
-#endif // SORAKADO_H_
+#endif // LIB_SKELETON_SORAKADO_H_

@@ -1,18 +1,12 @@
-#ifndef SAORI_H_
-#define SAORI_H_
+#ifndef LIB_SKELETON_SAORI_H_
+#define LIB_SKELETON_SAORI_H_
 
-#include "base/request.h"
-#include "base/response.h"
+#include "lib_skeleton/base/request.h"
+#include "lib_skeleton/base/response.h"
 
-namespace saori {
-    const char protocol_name[] = "SAORI";
-    const char protocol_version[] = "1.0";
-    const char request_value[] = "unused";
-    const char request_arg[] = "Argument";
-    const char response_value[] = "Result";
-    const char response_arg[] = "Value";
-    typedef base::Request<protocol_name, protocol_version, request_value, request_arg> Request;
-    typedef base::Response<protocol_name, protocol_version, response_value, response_arg> Response;
+namespace lib_skeleton::saori {
+    using Request = base::Request<"SAORI", "1.0", "unused", "Argument">;
+    using Response = base::Response<"SAORI", "1.0", "Result", "Value">;
 }
 
-#endif // SAORI_H_
+#endif // LIB_SKELETON_SAORI_H_

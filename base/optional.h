@@ -1,11 +1,10 @@
-#ifndef SSTP_OPTIONAL_H_
-#define SSTP_OPTIONAL_H_
+#ifndef LIB_SKELETON_OPTIONAL_H_
+#define LIB_SKELETON_OPTIONAL_H_
 
 #include <optional>
 #include <string>
 
-namespace base {
-
+namespace lib_skeleton::base {
 class optional : public std::optional<std::string> {
     public:
         template<typename T>
@@ -38,4 +37,4 @@ class optional : public std::optional<std::string> {
 
 }
 
-#endif // SSTP_OPTIONAL_H_
+#endif // LIB_SKELETON_OPTIONAL_H_

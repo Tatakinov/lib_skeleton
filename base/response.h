@@ -1,18 +1,17 @@
-#ifndef SSTP_RESPONSE_H_
-#define SSTP_RESPONSE_H_
+#ifndef LIB_SKELETON_BASE_RESPONSE_H_
+#define LIB_SKELETON_BASE_RESPONSE_H_
 
 #include <regex>
 #include <sstream>
 #include <string>
 
-#include "base/header.h"
+#include "lib_skeleton/base/header.h"
 
-namespace base {
-
-    template<const char *protocol_name, const char *protocol_version, const char *value, const char *arg>
+namespace lib_skeleton::base {
+    template<ConstString protocol_name, ConstString protocol_version, ConstString value, ConstString arg>
         class Response {
             public:
-                Response(int code, std::string status) : code_(code), status_(status), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
+                Response(int code, std::string status) : code_(code), status_(status), protocol_(std::string(protocol_name.buf) + "/" + protocol_version.buf), header_() {}
                 ~Response() {}
                 static Response parse(std::string str) {
                     auto result = std::remove_if(str.begin(), str.end(),
@@ -34,7 +33,7 @@ namespace base {
                     // line.substr(0, pos);
                     std::string protocol = line.substr(0, pos);
                     std::ostringstream pattern;
-                    pattern << protocol_name << R"(/\d+\.\d+)";
+                    pattern << protocol_name.buf << R"(/\d+\.\d+)";
                     if (!regex_match(protocol, std::regex(pattern.str()))) {
                         return ret;
                     }
@@ -57,11 +56,11 @@ namespace base {
                     return header_[key];
                 }
                 optional& operator()() {
-                    return header_[value];
+                    return header_[value.buf];
                 }
                 optional& operator()(size_t index) {
                     std::ostringstream oss;
-                    oss << arg << index;
+                    oss << arg.buf << index;
                     return header_[oss.str()];
                 }
                 std::string getContent() const {
@@ -90,4 +89,4 @@ namespace base {
 
 }
 
-#endif // SSTP_RESPONSE_H_
+#endif // LIB_SKELETON_BASE_RESPONSE_H_

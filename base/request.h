@@ -1,18 +1,18 @@
-#ifndef SSTP_REQUEST_H_
-#define SSTP_REQUEST_H_
+#ifndef LIB_SKELETON_BASE_REQUEST_H_
+#define LIB_SKELETON_BASE_REQUEST_H_
 
 #include <regex>
 #include <sstream>
 #include <string>
 
-#include "base/header.h"
+#include "lib_skeleton/const_string.h"
+#include "lib_skeleton/base/header.h"
 
-namespace base {
-
-    template<const char *protocol_name, const char *protocol_version, const char *value, const char *arg>
+namespace lib_skeleton::base {
+    template<ConstString protocol_name, ConstString protocol_version, ConstString value, ConstString arg>
         class Request {
             public:
-                Request(std::string command) : command_(command), protocol_(std::string(protocol_name) + "/" + protocol_version), header_() {}
+                Request(std::string command) : command_(command), protocol_(std::string(protocol_name.buf) + "/" + protocol_version.buf), header_() {}
                 ~Request() {}
                 static Request parse(std::string str) {
                     auto result = std::remove_if(str.begin(), str.end(),
@@ -34,7 +34,7 @@ namespace base {
                     // line.substr(pos + 1)
                     std::string protocol = line.substr(pos + 1);
                     std::ostringstream pattern;
-                    pattern << protocol_name << R"(/\d+\.\d+)";
+                    pattern << protocol_name.buf << R"(/\d+\.\d+)";
                     if (!regex_match(protocol, std::regex(pattern.str()))) {
                         return ret;
                     }
@@ -48,12 +48,20 @@ namespace base {
                 optional& operator[](const std::string& key) {
                     return header_[key];
                 }
+                const optional& operator()() const {
+                    return header_[value.buf];
+                }
                 optional& operator()() {
-                    return header_[value];
+                    return header_[value.buf];
+                }
+                const optional& operator()(size_t index) const {
+                    std::ostringstream oss;
+                    oss << arg.buf << index;
+                    return header_[oss.str()];
                 }
                 optional& operator()(size_t index) {
                     std::ostringstream oss;
-                    oss << arg << index;
+                    oss << arg.buf << index;
                     return header_[oss.str()];
                 }
                 operator std::string() const {
@@ -74,4 +82,4 @@ namespace base {
 
 }
 
-#endif // SSTP_REQUEST_H_
+#endif // LIB_SKELETON_BASE_REQUEST_H_

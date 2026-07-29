@@ -1,18 +1,12 @@
-#ifndef PLUGIN_H_
-#define PLUGIN_H_
+#ifndef LIB_SKELETON_PLUGIN_H_
+#define LIB_SKELETON_PLUGIN_H_
 
-#include "base/request.h"
-#include "base/response.h"
+#include "lib_skeleton/base/request.h"
+#include "lib_skeleton/base/response.h"
 
-namespace plugin {
-    const char protocol_name[] = "PLUGIN";
-    const char protocol_version[] = "2.0";
-    const char request_value[] = "ID";
-    const char request_arg[] = "Reference";
-    const char response_value[] = "Event";
-    const char response_arg[] = "Reference";
-    typedef base::Request<protocol_name, protocol_version, request_value, request_arg> Request;
-    typedef base::Response<protocol_name, protocol_version, response_value, response_arg> Response;
+namespace lib_skeleton::plugin {
+    using Request = base::Request<"PLUGIN", "2.0", "ID", "Reference">;
+    using Response = base::Response<"PLUGIN", "2.0", "Event", "Reference">;
 }
 
-#endif // PLUGIN_H_
+#endif // LIB_SKELETON_PLUGIN_H_

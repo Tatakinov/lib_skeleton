@@ -1,18 +1,12 @@
-#ifndef SHIORI_H_
-#define SHIORI_H_
+#ifndef LIB_SKELETON_SHIORI_H_
+#define LIB_SKELETON_SHIORI_H_
 
-#include "base/request.h"
-#include "base/response.h"
+#include "lib_skeleton/base/request.h"
+#include "lib_skeleton/base/response.h"
 
-namespace shiori {
-    const char protocol_name[] = "SHIORI";
-    const char protocol_version[] = "3.0";
-    const char request_value[] = "ID";
-    const char request_arg[] = "Reference";
-    const char response_value[] = "Value";
-    const char response_arg[] = "Reference";
-    typedef base::Request<protocol_name, protocol_version, request_value, request_arg> Request;
-    typedef base::Response<protocol_name, protocol_version, response_value, response_arg> Response;
+namespace lib_skeleton::shiori {
+    using Request = base::Request<"SHIORI", "3.0", "ID", "Reference">;
+    using Response = base::Response<"SHIORI", "3.0", "Value", "Reference">;
 }
 
-#endif // SHIORI_H_
+#endif // LIB_SKELETON_SHIORI_H_
