@@ -11,6 +11,8 @@
 namespace lib_skeleton::base {
     template<ConstString protocol_name, ConstString protocol_version, ConstString value, ConstString arg>
         class Request {
+            private:
+                inline static const std::regex proto_regex = std::regex(std::string(protocol_name.buf) + R"(/\d+\.\d+)");
             public:
                 Request(std::string command) : command_(command), protocol_(std::string(protocol_name.buf) + "/" + protocol_version.buf), header_() {}
                 ~Request() {}
@@ -33,9 +35,7 @@ namespace lib_skeleton::base {
                     // assert protocol name
                     // line.substr(pos + 1)
                     std::string protocol = line.substr(pos + 1);
-                    std::ostringstream pattern;
-                    pattern << protocol_name.buf << R"(/\d+\.\d+)";
-                    if (!regex_match(protocol, std::regex(pattern.str()))) {
+                    if (!regex_match(protocol, proto_regex)) {
                         return ret;
                     }
                     ret.command_    = line.substr(0, pos);
