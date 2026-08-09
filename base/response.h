@@ -46,7 +46,14 @@ namespace lib_skeleton::base {
                     ret.status_ = line.substr(pos + 1);
                     ret.protocol_   = protocol;
                     ret.header_ = Header::parse(iss);
-                    std::getline(iss, ret.content_, '\x0a');
+                    std::string tmp;
+                    while (std::getline(iss, tmp, '\x0a')) {
+                        if (tmp.empty()) {
+                            break;
+                        }
+                        ret.content_.append(tmp);
+                        ret.content_.append("\x0a");
+                    }
                     return ret;
                 }
                 int getStatusCode() { return code_; }
