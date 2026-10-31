@@ -43,6 +43,7 @@ class Header {
             map_.erase(key);
         }
 
+        inline const std::unordered_map<std::string, optional> &headers() const { return map_; }
         inline const optional& operator[](const std::string& key) const { return map_.at(key); }
         inline optional& operator[](const std::string& key) { return map_[key]; }
         operator std::string() const {

@@ -45,6 +45,9 @@ namespace lib_skeleton::base {
                 }
                 std::string getCommand() { return command_; }
                 std::string getProtocol() { return protocol_; }
+                const Header &header() const {
+                    return header_;
+                }
                 optional& operator[](const std::string& key) {
                     return header_[key];
                 }

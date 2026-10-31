@@ -59,6 +59,9 @@ namespace lib_skeleton::base {
                 int getStatusCode() { return code_; }
                 std::string getStatus() { return status_; }
                 std::string getProtocol() { return protocol_; }
+                const Header &header() const {
+                    return header_;
+                }
                 optional& operator[](const std::string& key) {
                     return header_[key];
                 }
